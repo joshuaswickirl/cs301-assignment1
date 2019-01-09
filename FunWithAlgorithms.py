@@ -92,15 +92,31 @@ def sumOfN_Comparison(n=None):
             except (ValueError):
                 print("Value is not an integer.")
 
-    timeComparison(input_for_functions = n, list_of_functions = list_of_functions)
+    timeComparison(input_for_functions=n, list_of_functions=list_of_functions)
 
 #
 #   Scrabble logic
 #
 
 # 2. Given word, check if it's a valid word
+def validateWord_Joshua(word_input):
+    
+    with open("words.txt", 'r') as words_file:
+        for word in words_file:
+            if word_input.lower() == word.rstrip():
+                return True
+
+        return False # False if word not found
 
 
+def validateWord_Comparison(word=None):
+    list_of_functions = [validateWord_Joshua]
+    print("\nQuestion 1. Given a proposed word that someone wants to play, can you check that is a valid word?")
+
+    if word == None:
+        word = input("\nEnter a word: ")
+    
+    timeComparison(input_for_functions=word, list_of_functions=list_of_functions)
 
 # 3. Given set of tiles and a word
 
@@ -121,4 +137,7 @@ def sumOfN_Comparison(n=None):
 if __name__ == "__main__":
 
     # Run question 1
-    sumOfN_Comparison()
+    #sumOfN_Comparison()
+
+    # Run question 2
+    validateWord_Comparison()
