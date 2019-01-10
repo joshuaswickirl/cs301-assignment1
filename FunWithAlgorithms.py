@@ -123,19 +123,19 @@ def validateWord_Edgar(word_input):
 
 def validateWord_Matt(word_input):
     with open("words.txt", 'r') as datafile:
-    found = False
-    for word in datafile:
-        if word_input in word:
-            found = True
-            break
-    if found:
-        return True
-    else:
-        return False
+        found = False
+        for word in datafile:
+            if word_input in word:
+                found = True
+                break
+        if found:
+            return True
+        else:
+            return False
 
 
 def validateWord_Comparison(word=None):
-    list_of_functions = [validateWord_Joshua]
+    list_of_functions = [validateWord_Joshua, validateWord_Matt]
     print("\nQuestion 2. Given a proposed word that someone wants to play, can you check that is a valid word?")
     if word == None:
         word = input("\nEnter a word: ")
@@ -259,20 +259,20 @@ def mostBingos_Comparison():
 
 if __name__ == "__main__":
 
-    # Run question 1
-    sumOfN_Comparison()
+    # # Run question 1
+    # sumOfN_Comparison()
 
-    # Run question 2
+    # # Run question 2
     validateWord_Comparison()
 
-    # Run question 3
-    makeWord_Comparison()
+    # # Run question 3
+    # makeWord_Comparison()
 
-    # Run question 4
-    findWords_Comparison()
+    # # Run question 4
+    # findWords_Comparison()
 
-    # Run question 5
-    puzzleWords_Comparison()
+    # # Run question 5
+    # puzzleWords_Comparison()
 
-    # Run question 6
-    mostBingos_Comparison()
+    # # Run question 6
+    # mostBingos_Comparison()
