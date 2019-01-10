@@ -73,9 +73,11 @@ def sumOfN_Joshua(n):
         n -= 1
     return sum
 
+
 def sumOfN_Edgar(n):
     sum = (n * (n +1))/2
     return sum
+
 
 def sumOfN_Matt(n):
     count=0
@@ -84,6 +86,7 @@ def sumOfN_Matt(n):
         final = (count+final)
         count = (count+1)
     return final
+
 
 def sumOfN_Comparison(n=None):
     list_of_functions = [sumOfN_Joshua, sumOfN_Edgar, sumOfN_Matt]
@@ -114,6 +117,14 @@ def validateWord_Joshua(word_input):
         return False # False if word not found
 
 
+def validateWord_Edgar(word_input):
+    pass
+
+
+def validateWord_Matt(word_input):
+    pass
+
+
 def validateWord_Comparison(word=None):
     list_of_functions = [validateWord_Joshua]
     print("\nQuestion 2. Given a proposed word that someone wants to play, can you check that is a valid word?")
@@ -129,13 +140,22 @@ def makeWord_Joshua(char_set, word):
     word_index = 0
     for char in word_as_list:
         if char in char_set and word_index == word_length -1:
-            print(f"The word '{word}' exists in {str(char_set)}.")
+            print(f"The word '{word}' can be made with {str(char_set)}.")
             return True
         elif char in char_set:
             word_index += 1
         else:
-            print(f"The word '{word}' does not exist in {str(char_set)}.")
+            print(f"The word '{word}' can be made with {str(char_set)}.")
             return False
+
+
+def makeWord_Edgar(char_set, word):
+    pass
+
+
+def makeWord_Matt(char_set, word):
+    pass
+
             
 def makeWord_Comparison(char_set=None, word=None):
     list_of_functions = [makeWord_Joshua]
@@ -145,7 +165,7 @@ def makeWord_Comparison(char_set=None, word=None):
             word = input("\nEnter a word: ")
         if char_set == None:
             char_set = set()  # Init set
-            tiles = input("\nEnter a list of letters seperated by a comma? (ex. h,e,l,l,o): ")
+            tiles = input("\nEnter a list of letters seperated by a comma. (ex. h,e,l,l,o): ")
             char_list = tiles.split(",")
             set_length = len(char_list)
             for i in range(set_length):
