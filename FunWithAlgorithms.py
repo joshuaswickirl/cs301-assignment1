@@ -11,7 +11,7 @@ import time
 #
 #   Helper function for measuring and comparing runtime of algorithms
 #
-def timeComparison(list_of_args, list_of_functions):
+def compareRuntimes(list_of_args, list_of_functions):
     """
     Measures and compares approximate runtimes for each function in 
     list_of_functions when ran with the list_of_args argument.
@@ -27,7 +27,7 @@ def timeComparison(list_of_args, list_of_functions):
             time_end = time.time()
             runtime = time_end - time_start
             runTimes.append(runtime)
-            print(f"{_function.__name__}: {output}")
+            print(f"\n{_function.__name__}: {output}")
     elif len(list_of_args) == 2:
         # Get runtimes and print results
         for _function in list_of_functions:
@@ -36,7 +36,7 @@ def timeComparison(list_of_args, list_of_functions):
             time_end = time.time()
             runtime = time_end - time_start
             runTimes.append(runtime)
-            print(f"{_function.__name__}: {output}")
+            print(f"\n{_function.__name__}: {output}")
 
     # Get slowest runtime
     slowestFunction = list_of_functions[0]
@@ -102,7 +102,7 @@ def sumOfN_Comparison(n=None):
                     break
             except (ValueError):
                 print("Value is not an integer.")
-    timeComparison(list_of_args=[n], list_of_functions=list_of_functions)
+    compareRuntimes(list_of_args=[n], list_of_functions=list_of_functions)
 
 #
 #   Scrabble logic
@@ -130,7 +130,7 @@ def validateWord_Comparison(word=None):
     print("\nQuestion 2. Given a proposed word that someone wants to play, can you check that is a valid word?")
     if word == None:
         word = input("\nEnter a word: ")
-    timeComparison(list_of_args=[word], list_of_functions=list_of_functions)
+    compareRuntimes(list_of_args=[word], list_of_functions=list_of_functions)
 
 
 # 3. Given set of tiles and a word, check if word can be made
@@ -140,12 +140,12 @@ def makeWord_Joshua(char_set, word):
     word_index = 0
     for char in word_as_list:
         if char in char_set and word_index == word_length -1:
-            print(f"The word '{word}' can be made with {str(char_set)}.")
+            #print(f"The word '{word}' can be made with {str(char_set)}.")
             return True
         elif char in char_set:
             word_index += 1
         else:
-            print(f"The word '{word}' can be made with {str(char_set)}.")
+            #print(f"The word '{word}' can not be made with {str(char_set)}.")
             return False
 
 
@@ -170,11 +170,47 @@ def makeWord_Comparison(char_set=None, word=None):
             set_length = len(char_list)
             for i in range(set_length):
                 char_set.add(char_list[i])
-    timeComparison(list_of_args=[char_set, word], list_of_functions=list_of_functions)
+    compareRuntimes(list_of_args=[char_set, word], list_of_functions=list_of_functions)
 
 
 # 4 Given set of tiles, find words that can be made
+def findWords_Joshua(char_set):       
+    confirmed_words = set()  # Empty set
+    with open("words.txt", 'r') as words_file:
+        for word in words_file:
+            word = word.rstrip()
+            word_length = len(word)
+            word_as_list = list(word)
+            word_index = 0
+            for char in word_as_list:
+                if char in char_set and word_index == word_length - 1:
+                    confirmed_words.add(word)
+                elif char in char_set:
+                    word_index += 1
+                else:
+                    break
+    #print(f"The following words can be made with {str(char_set)}.\n {str(confirmed_words)}")
+    return confirmed_words
 
+
+def findWords_Edgar(char_set):
+    pass
+
+
+def findWords_Matt(char_set):
+    pass
+
+
+def findWords_Comparison(char_set=None):
+    list_of_functions = [findWords_Joshua]
+    if char_set == None:
+        char_set = set()  # Init set
+        tiles = input("\nEnter a list of letters seperated by a comma. (ex. h,e,l,l,o): ")
+        char_list = tiles.split(",")
+        set_length = len(char_list)
+        for i in range(set_length):
+            char_set.add(char_list[i])
+    compareRuntimes(list_of_args=[char_set], list_of_functions=list_of_functions)
 
 
 # 5. Find all possible words for given puzzle
@@ -187,11 +223,15 @@ def makeWord_Comparison(char_set=None, word=None):
 
 if __name__ == "__main__":
 
-    # Run question 1
-    sumOfN_Comparison()
+    # # Run question 1
+    # sumOfN_Comparison()
 
-    # Run question 2
-    validateWord_Comparison()
+    # # Run question 2
+    # validateWord_Comparison()
 
     # # Run question 3
     makeWord_Comparison()
+
+    # Run question 4
+    # char_set = {'h','e','l','o'}
+    # findWords_Comparison(char_set)
