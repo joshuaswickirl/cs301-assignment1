@@ -214,24 +214,55 @@ def findWords_Comparison(char_set=None):
 
 
 # 5. Find all possible words for given puzzle
+def puzzleWords_Joshua(puzzle_words):
+    pass
 
+
+def puzzleWords_Edgar(puzzle_words):
+    pass
+
+
+def puzzleWords_Matt(puzzle_words):
+    pass
+
+
+def puzzleWords_Comparison(puzzle_words=None):
+    pass
 
 
 # 6. Sets of eight letters to form most possible bingos
+def mostBingos_Joshua():
+    pass
 
+
+def mostBingos_Edgar():
+    pass
+
+
+def mostBingos_Matt():
+    pass
+
+
+def mostBingos_Comparison():
+    pass
 
 
 if __name__ == "__main__":
 
-    # # Run question 1
-    # sumOfN_Comparison()
+    # Run question 1
+    sumOfN_Comparison()
 
-    # # Run question 2
-    # validateWord_Comparison()
+    # Run question 2
+    validateWord_Comparison()
 
-    # # Run question 3
+    # Run question 3
     makeWord_Comparison()
 
     # Run question 4
-    # char_set = {'h','e','l','o'}
-    # findWords_Comparison(char_set)
+    findWords_Comparison()
+
+    # Run question 5
+    puzzleWords_Comparison()
+
+    # Run question 6
+    mostBingos_Comparison()
