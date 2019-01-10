@@ -163,7 +163,12 @@ def makeWord_Edgar(char_set, word):
 
 
 def makeWord_Matt(char_set, word):
-    pass
+    for each_letter in word:
+        try:
+            char_set.remove(each_letter)
+        except ValueError:
+            return("false")            
+    return("True")
 
             
 def makeWord_Comparison(char_set=None, word=None):
