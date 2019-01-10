@@ -11,23 +11,32 @@ import time
 #
 #   Helper function for measuring and comparing runtime of algorithms
 #
-def timeComparison(input_for_functions, list_of_functions):
+def timeComparison(list_of_args, list_of_functions):
     """
     Measures and compares approximate runtimes for each function in 
-    list_of_functions when ran with the input_for_functions argument.
+    list_of_functions when ran with the list_of_args argument.
     """
     numFunctions = len(list_of_functions)
-    
-    # Get runtimes and print results
-    runTimes = []  # Init array for function durations
-    for _function in list_of_functions:
 
-        time_start = time.time() # Init time
-        output = _function(input_for_functions)
-        time_end = time.time()
-        runtime = time_end - time_start
-        runTimes.append(runtime)
-        print(f"{_function.__name__}: {output}")
+    runTimes = []  # Init array for function durations
+    if len(list_of_args) == 1:
+        # Get runtimes and print results
+        for _function in list_of_functions:
+            time_start = time.time() # Init time
+            output = _function(list_of_args[0])
+            time_end = time.time()
+            runtime = time_end - time_start
+            runTimes.append(runtime)
+            print(f"{_function.__name__}: {output}")
+    elif len(list_of_args) == 2:
+        # Get runtimes and print results
+        for _function in list_of_functions:
+            time_start = time.time() # Init time
+            output = _function(list_of_args[0],list_of_args[1])
+            time_end = time.time()
+            runtime = time_end - time_start
+            runTimes.append(runtime)
+            print(f"{_function.__name__}: {output}")
 
     # Get slowest runtime
     slowestFunction = list_of_functions[0]
@@ -40,7 +49,7 @@ def timeComparison(input_for_functions, list_of_functions):
             slowestFunctionIndex = index
         else:
             pass
-    print(f"\n{slowestFunction.__name__} was the slowest algorithm at {slowestTime:.4f} seconds.")
+    print(f"\n{slowestFunction.__name__} was the slowest algorithm at {slowestTime:.5f} seconds.")
 
     # Compare runtimes
     for index in range(numFunctions):
@@ -50,7 +59,7 @@ def timeComparison(input_for_functions, list_of_functions):
             runTime = runTimes[index]
             percentFaster = slowestTime / runTime
             functionName = list_of_functions[index]
-            print(f"{functionName.__name__} is {percentFaster:.2f}% faster at {runTime:.4f} seconds.")
+            print(f"{functionName.__name__} is {percentFaster:.2f}% faster at {runTime:.5f} seconds.")
 
 #
 #   Assignment Questions
@@ -79,7 +88,6 @@ def sumOfN_Matt(n):
 def sumOfN_Comparison(n=None):
     list_of_functions = [sumOfN_Joshua, sumOfN_Edgar, sumOfN_Matt]
     print("\nQuestion 1. What is the sum of the first n positive integers?")
-    
     if n == None:
         while(True):
             n = input("\nEnter a positive integer: ")
@@ -91,8 +99,7 @@ def sumOfN_Comparison(n=None):
                     break
             except (ValueError):
                 print("Value is not an integer.")
-
-    timeComparison(input_for_functions=n, list_of_functions=list_of_functions)
+    timeComparison(list_of_args=[n], list_of_functions=list_of_functions)
 
 #
 #   Scrabble logic
@@ -100,26 +107,50 @@ def sumOfN_Comparison(n=None):
 
 # 2. Given word, check if it's a valid word
 def validateWord_Joshua(word_input):
-    
     with open("words.txt", 'r') as words_file:
         for word in words_file:
             if word_input.lower() == word.rstrip():
                 return True
-
         return False # False if word not found
 
 
 def validateWord_Comparison(word=None):
     list_of_functions = [validateWord_Joshua]
-    print("\nQuestion 1. Given a proposed word that someone wants to play, can you check that is a valid word?")
-
+    print("\nQuestion 2. Given a proposed word that someone wants to play, can you check that is a valid word?")
     if word == None:
         word = input("\nEnter a word: ")
-    
-    timeComparison(input_for_functions=word, list_of_functions=list_of_functions)
+    timeComparison(list_of_args=[word], list_of_functions=list_of_functions)
 
-# 3. Given set of tiles and a word
 
+# 3. Given set of tiles and a word, check if word can be made
+def makeWord_Joshua(char_set, word):
+    word_length = len(word)
+    word_as_list = list(word)
+    word_index = 0
+    for char in word_as_list:
+        if char in char_set and word_index == word_length -1:
+            print(f"The word '{word}' exists in {str(char_set)}.")
+            return True
+        elif char in char_set:
+            word_index += 1
+        else:
+            print(f"The word '{word}' does not exist in {str(char_set)}.")
+            return False
+            
+def makeWord_Comparison(char_set=None, word=None):
+    list_of_functions = [makeWord_Joshua]
+    print("\nQuestion 3. Given a set of tiles and a word, can you check if the word can be made from the tiles?")
+    if char_set == None:
+        if word == None:
+            word = input("\nEnter a word: ")
+        if char_set == None:
+            char_set = set()  # Init set
+            tiles = input("\nEnter a list of letters seperated by a comma? (ex. h,e,l,l,o): ")
+            char_list = tiles.split(",")
+            set_length = len(char_list)
+            for i in range(set_length):
+                char_set.add(char_list[i])
+    timeComparison(list_of_args=[char_set, word], list_of_functions=list_of_functions)
 
 
 # 4 Given set of tiles, find words that can be made
@@ -137,7 +168,10 @@ def validateWord_Comparison(word=None):
 if __name__ == "__main__":
 
     # Run question 1
-    #sumOfN_Comparison()
+    sumOfN_Comparison()
 
     # Run question 2
     validateWord_Comparison()
+
+    # # Run question 3
+    makeWord_Comparison()
