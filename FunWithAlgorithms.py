@@ -250,14 +250,14 @@ def mostBingos_Comparison():
 
 if __name__ == "__main__":
 
-    # # Run question 1
-    # sumOfN_Comparison()
+    # Run question 1
+    sumOfN_Comparison()
 
-    # # Run question 2
-    # validateWord_Comparison()
+    # Run question 2
+    validateWord_Comparison()
 
-    # # Run question 3
-    # makeWord_Comparison()
+    # Run question 3
+    makeWord_Comparison()
 
     # Run question 4
     findWords_Comparison()
