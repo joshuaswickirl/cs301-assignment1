@@ -203,6 +203,7 @@ def findWords_Matt(char_set):
 
 def findWords_Comparison(char_set=None):
     list_of_functions = [findWords_Joshua]
+    print(f"\nQuestion 4. Given a set of tiles, can you find all the words you can make with them?")
     if char_set == None:
         char_set = set()  # Init set
         tiles = input("\nEnter a list of letters seperated by a comma. (ex. h,e,l,l,o): ")
@@ -249,14 +250,14 @@ def mostBingos_Comparison():
 
 if __name__ == "__main__":
 
-    # Run question 1
-    sumOfN_Comparison()
+    # # Run question 1
+    # sumOfN_Comparison()
 
-    # Run question 2
-    validateWord_Comparison()
+    # # Run question 2
+    # validateWord_Comparison()
 
-    # Run question 3
-    makeWord_Comparison()
+    # # Run question 3
+    # makeWord_Comparison()
 
     # Run question 4
     findWords_Comparison()
