@@ -122,7 +122,16 @@ def validateWord_Edgar(word_input):
 
 
 def validateWord_Matt(word_input):
-    pass
+    with open("words.txt", 'r') as datafile:
+    found = False
+    for word in datafile:
+        if word_input in word:
+            found = True
+            break
+    if found:
+        return True
+    else:
+        return False
 
 
 def validateWord_Comparison(word=None):
