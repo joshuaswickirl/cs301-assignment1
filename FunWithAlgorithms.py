@@ -145,16 +145,16 @@ def validateWord_Comparison(word=None):
 # 3. Given set of tiles and a word, check if word can be made
 def makeWord_Joshua(char_set, word):
     word_length = len(word)
-    word_as_list = list(word)
-    word_index = 0
-    for char in word_as_list:
-        if char in char_set and word_index == word_length -1:
-            #print(f"The word '{word}' can be made with {str(char_set)}.")
+    char_set_length = len(char_set)
+    word_index = 1
+    for char in word:
+        print(char)
+        if char in char_set and word_index == word_length:
             return True
         elif char in char_set:
+            char_set.remove(char)
             word_index += 1
         else:
-            #print(f"The word '{word}' can not be made with {str(char_set)}.")
             return False
 
 
@@ -166,24 +166,23 @@ def makeWord_Matt(char_set, word):
     for each_letter in word:
         try:
             char_set.remove(each_letter)
-        except ValueError:
-            return("false")            
-    return("True")
+        except:
+            return False            
+    return True
 
             
 def makeWord_Comparison(char_set=None, word=None):
-    list_of_functions = [makeWord_Joshua]
+    list_of_functions = [makeWord_Joshua, makeWord_Matt]
     print("\nQuestion 3. Given a set of tiles and a word, can you check if the word can be made from the tiles?")
     if char_set == None:
         if word == None:
             word = input("\nEnter a word: ")
         if char_set == None:
-            char_set = set()  # Init set
             tiles = input("\nEnter a list of letters seperated by a comma. (ex. h,e,l,l,o): ")
-            char_list = tiles.split(",")
-            set_length = len(char_list)
-            for i in range(set_length):
-                char_set.add(char_list[i])
+            char_set = tiles.split(",") # Actually a list to allow duplicate letters. Sets cannot have duplicate values.
+            # set_length = len(char_list)
+            # for i in range(set_length):
+            #     char_set.add(char_list[i])
     compareRuntimes(list_of_args=[char_set, word], list_of_functions=list_of_functions)
 
 
@@ -268,10 +267,10 @@ if __name__ == "__main__":
     # sumOfN_Comparison()
 
     # # Run question 2
-    validateWord_Comparison()
+    # validateWord_Comparison()
 
     # # Run question 3
-    # makeWord_Comparison()
+    makeWord_Comparison()
 
     # # Run question 4
     # findWords_Comparison()
