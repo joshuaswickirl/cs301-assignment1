@@ -237,7 +237,7 @@ def puzzleWords_Joshua(puzzle_letters):
                     word_index += 1
                 else:
                     break
-    #print(f"The following words can be made with {str(char_list)}.\n {str(confirmed_words)}")
+    #print(f"The following words can be made with {str(puzzle_letters)}.\n {str(confirmed_words)}")
     return confirmed_words
 
 
@@ -260,6 +260,15 @@ def puzzleWords_Comparison(puzzle_letters=None):
 
 # 6. Sets of eight letters to form most possible bingos
 def mostBingos_Joshua():
+    # List of letters
+
+    # Get all combiniations of 8 letters, including duplicate letters
+
+    # Check if words, using all 8 letters exist
+
+    # Compare numb for words found, per set
+
+    # Return winner
     pass
 
 
@@ -290,7 +299,7 @@ if __name__ == "__main__":
     # findWords_Comparison()
 
     # # Run question 5
-    puzzleWords_Comparison()
+    # puzzleWords_Comparison()
 
     # # Run question 6
-    # mostBingos_Comparison()
+    mostBingos_Comparison()
