@@ -148,7 +148,6 @@ def makeWord_Joshua(char_set, word):
     char_set_length = len(char_set)
     word_index = 1
     for char in word:
-        print(char)
         if char in char_set and word_index == word_length:
             return True
         elif char in char_set:
