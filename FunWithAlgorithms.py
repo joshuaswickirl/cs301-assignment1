@@ -221,20 +221,41 @@ def findWords_Comparison(char_list=None):
 
 
 # 5. Find all possible words for given puzzle
-def puzzleWords_Joshua(puzzle_words):
+def puzzleWords_Joshua(puzzle_letters):
+    confirmed_words = []
+    with open("words.txt", 'r') as words_file:
+        for word in words_file:
+            word_as_list = list(word.rstrip())
+            word_length = len(word_as_list)
+            word_index = 0
+            chars = puzzle_letters.copy()
+            for letter in word_as_list:
+                if letter in chars and word_index == word_length-1:
+                    confirmed_words.append(word.rstrip())
+                elif letter in chars:
+                    chars.remove(letter)
+                    word_index += 1
+                else:
+                    break
+    #print(f"The following words can be made with {str(char_list)}.\n {str(confirmed_words)}")
+    return confirmed_words
+
+
+def puzzleWords_Edgar(puzzle_letters):
     pass
 
 
-def puzzleWords_Edgar(puzzle_words):
+def puzzleWords_Matt(puzzle_letters):
     pass
 
 
-def puzzleWords_Matt(puzzle_words):
-    pass
-
-
-def puzzleWords_Comparison(puzzle_words=None):
-    pass
+def puzzleWords_Comparison(puzzle_letters=None):
+    list_of_functions = [puzzleWords_Joshua]
+    print(f"\nQuestion 4. Can you write a function to tell you all of possible words for a given puzzle?")
+    if puzzle_letters == None:
+        tiles = input("\nEnter a list of letters seperated by a comma. (ex. a,b,c,i,n,r,l): ")
+        puzzle_letters = tiles.split(",")
+    compareRuntimes(list_of_args=[puzzle_letters], list_of_functions=list_of_functions)
 
 
 # 6. Sets of eight letters to form most possible bingos
@@ -263,13 +284,13 @@ if __name__ == "__main__":
     # validateWord_Comparison()
 
     # # Run question 3
-    makeWord_Comparison()
+    # makeWord_Comparison()
 
     # # Run question 4
     # findWords_Comparison()
 
     # # Run question 5
-    # puzzleWords_Comparison()
+    puzzleWords_Comparison()
 
     # # Run question 6
     # mostBingos_Comparison()
