@@ -184,44 +184,41 @@ def makeWord_Comparison(char_list=None, word=None):
 
 
 # 4 Given set of tiles, find words that can be made
-def findWords_Joshua(char_set):       
-    confirmed_words = set()  # Empty set
+def findWords_Joshua(char_list):
+    confirmed_words = []
     with open("words.txt", 'r') as words_file:
         for word in words_file:
-            word = word.rstrip()
-            word_length = len(word)
-            word_as_list = list(word)
+            word_as_list = list(word.rstrip())
+            word_length = len(word_as_list)
             word_index = 0
-            for char in word_as_list:
-                if char in char_set and word_index == word_length - 1:
-                    confirmed_words.add(word)
-                elif char in char_set:
+            chars = char_list.copy()
+            for letter in word_as_list:
+                if letter in chars and word_index == word_length-1:
+                    confirmed_words.append(word.rstrip())
+                elif letter in chars:
+                    chars.remove(letter)
                     word_index += 1
                 else:
                     break
-    #print(f"The following words can be made with {str(char_set)}.\n {str(confirmed_words)}")
+    #print(f"The following words can be made with {str(char_list)}.\n {str(confirmed_words)}")
     return confirmed_words
 
 
-def findWords_Edgar(char_set):
+def findWords_Edgar(char_list):
     pass
 
 
-def findWords_Matt(char_set):
+def findWords_Matt(char_list):
     pass
 
 
-def findWords_Comparison(char_set=None):
+def findWords_Comparison(char_list=None):
     list_of_functions = [findWords_Joshua]
     print(f"\nQuestion 4. Given a set of tiles, can you find all the words you can make with them?")
-    if char_set == None:
-        char_set = set()  # Init set
+    if char_list == None:
         tiles = input("\nEnter a list of letters seperated by a comma. (ex. h,e,l,l,o): ")
         char_list = tiles.split(",")
-        set_length = len(char_list)
-        for i in range(set_length):
-            char_set.add(char_list[i])
-    compareRuntimes(list_of_args=[char_set], list_of_functions=list_of_functions)
+    compareRuntimes(list_of_args=[char_list], list_of_functions=list_of_functions)
 
 
 # 5. Find all possible words for given puzzle
@@ -267,10 +264,10 @@ if __name__ == "__main__":
     # validateWord_Comparison()
 
     # # Run question 3
-    makeWord_Comparison()
+    # makeWord_Comparison()
 
     # # Run question 4
-    # findWords_Comparison()
+    findWords_Comparison()
 
     # # Run question 5
     # puzzleWords_Comparison()
