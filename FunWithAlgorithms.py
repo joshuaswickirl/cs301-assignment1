@@ -143,15 +143,15 @@ def validateWord_Comparison(word=None):
 
 
 # 3. Given set of tiles and a word, check if word can be made
-def makeWord_Joshua(char_set, word):
+def makeWord_Joshua(char_list, word):
     word_length = len(word)
-    char_set_length = len(char_set)
+    char_list_length = len(char_list)
     word_index = 1
     for char in word:
-        if char in char_set and word_index == word_length:
+        if char in char_list and word_index == word_length:
             return True
-        elif char in char_set:
-            char_set.remove(char)
+        elif char in char_list:
+            char_list.remove(char)
             word_index += 1
         else:
             return False
@@ -170,19 +170,17 @@ def makeWord_Matt(char_set, word):
     return True
 
             
-def makeWord_Comparison(char_set=None, word=None):
+def makeWord_Comparison(char_list=None, word=None):
     list_of_functions = [makeWord_Joshua, makeWord_Matt]
     print("\nQuestion 3. Given a set of tiles and a word, can you check if the word can be made from the tiles?")
-    if char_set == None:
+    if char_list == None:
         if word == None:
             word = input("\nEnter a word: ")
-        if char_set == None:
+        if char_list == None:
             tiles = input("\nEnter a list of letters seperated by a comma. (ex. h,e,l,l,o): ")
-            char_set = tiles.split(",") # Actually a list to allow duplicate letters. Sets cannot have duplicate values.
-            # set_length = len(char_list)
-            # for i in range(set_length):
-            #     char_set.add(char_list[i])
-    compareRuntimes(list_of_args=[char_set, word], list_of_functions=list_of_functions)
+            # Actually a list to allow duplicate letters. Sets cannot have duplicate values.
+            char_list = tiles.split(",")
+    compareRuntimes(list_of_args=[char_list, word], list_of_functions=list_of_functions)
 
 
 # 4 Given set of tiles, find words that can be made
