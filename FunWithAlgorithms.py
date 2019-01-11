@@ -145,7 +145,6 @@ def validateWord_Comparison(word=None):
 # 3. Given set of tiles and a word, check if word can be made
 def makeWord_Joshua(char_list, word):
     word_length = len(word)
-    char_list_length = len(char_list)
     word_index = 1
     for char in word:
         if char in char_list and word_index == word_length:
@@ -264,10 +263,10 @@ if __name__ == "__main__":
     # validateWord_Comparison()
 
     # # Run question 3
-    # makeWord_Comparison()
+    makeWord_Comparison()
 
     # # Run question 4
-    findWords_Comparison()
+    # findWords_Comparison()
 
     # # Run question 5
     # puzzleWords_Comparison()
