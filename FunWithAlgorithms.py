@@ -19,7 +19,15 @@ def compareRuntimes(list_of_args, list_of_functions):
     numFunctions = len(list_of_functions)
 
     runTimes = []  # Init array for function durations
-    if len(list_of_args) == 1:
+    if list_of_args == None:
+        for _function in list_of_functions:
+            time_start = time.time() # Init time
+            output = _function()
+            time_end = time.time()
+            runtime = time_end - time_start
+            runTimes.append(runtime)
+            print(f"\n{_function.__name__}: {output}")
+    elif len(list_of_args) == 1:
         # Get runtimes and print results
         for _function in list_of_functions:
             time_start = time.time() # Init time
@@ -260,16 +268,61 @@ def puzzleWords_Comparison(puzzle_letters=None):
 
 # 6. Sets of eight letters to form most possible bingos
 def mostBingos_Joshua():
-    # List of letters
-
-    # Get all combiniations of 8 letters, including duplicate letters
-
-    # Check if words, using all 8 letters exist
-
-    # Compare numb for words found, per set
-
+    bingos = {
+        #word: [other, words],
+    }
+    _8char_words = []
+    # Find words that have 8 chars
+    with open('words.txt', 'r') as words_file:
+        for word in words_file:
+            word = word.rstrip()  # remove \n
+            word_length = len(word)
+            if word_length != 8:  # skip words that are not 8 letters
+                continue
+            else:
+                bingos[word.rstrip()] = []
+                _8char_words.append(word.rstrip())
+    for bingo in bingos:
+        # Check if words, using same letters exist
+        bingo_chars = list(str(bingo))
+        other_bingos = []
+        for other_word in _8char_words:
+            other_word_list = list(other_word)
+            other_word_length = len(other_word_list)
+            if other_word != bingo:  # skip duplicates
+                other_word_index = 0
+                chars = bingo_chars.copy()
+                for char in other_word_list:
+                    if char in chars and other_word_index == other_word_length -1:
+                        other_bingos.append(other_word)
+                        print(f"A match for {bingo} is {other_word}")
+                    elif char in chars:
+                        chars.remove(char)
+                        other_word_index += 1
+                    else:
+                        continue  # word doesn't match bingo_chars
+        bingos[bingo] = other_bingos
+    # Compare num of words found, per set
+    winning_chars_all = []
+    num_winning_charset = 0
+    for bingo_chars in bingos:
+        if len(bingos[bingo_chars]) > num_winning_charset:
+            winning_chars_all.clear()  # reset winning_chars
+            winning_chars = []
+            winning_chars.append(bingo_chars)
+            winning_chars.append(bingos[winning_chars][0])
+            winning_chars_all.append(winning_chars)
+            num_winning_charset = len(bingos[winning_chars]) + 1  # plus 1 for key
+        elif len(bingo[bingo_chars]) == num_winning_charset:
+            winning_chars = []
+            winning_chars.append(bingo_chars)
+            winning_chars.append(bingos[winning_chars][0])
+            winning_chars_all.appen(winning_chars)
+        else:
+            continue
     # Return winner
-    pass
+    print(str(winning_chars_all))
+    return winning_chars_all
 
 
 def mostBingos_Edgar():
@@ -281,7 +334,8 @@ def mostBingos_Matt():
 
 
 def mostBingos_Comparison():
-    pass
+    list_of_functions = [mostBingos_Joshua]
+    compareRuntimes(list_of_args=None, list_of_functions=list_of_functions)
 
 
 if __name__ == "__main__":
