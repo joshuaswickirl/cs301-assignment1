@@ -125,8 +125,14 @@ def validateWord_Joshua(word_input):
         return False # False if word not found
 
 
-def validateWord_Edgar(word_input):
-    pass
+def validateWord_Edgar():
+    if 'look' in open('words.txt').read():
+        print (True)
+    else:
+        print (False)
+        
+validateWord_Edgar()
+    
 
 
 def validateWord_Matt(word_input):
