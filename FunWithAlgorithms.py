@@ -21,53 +21,80 @@ def compareRuntimes(list_of_args, list_of_functions):
     runTimes = []  # Init array for function durations
     if list_of_args == None:
         for _function in list_of_functions:
-            time_start = time.time() # Init time
-            output = _function()
-            time_end = time.time()
-            runtime = time_end - time_start
-            runTimes.append(runtime)
-            print(f"\n{_function.__name__}: {output}")
+            try:
+                time_start = time.time() # Init time
+                output = _function()
+                time_end = time.time()
+                runtime = time_end - time_start
+                if runtime < 0.000001:
+                    runTimes.append(None)
+                else:
+                    runTimes.append(runtime)
+                print(f"\n{_function.__name__}: {output}")
+            except:
+                print(f"\n{_function.__name__}: None")
+                runTimes.append(None)
+
     elif len(list_of_args) == 1:
         # Get runtimes and print results
         for _function in list_of_functions:
-            time_start = time.time() # Init time
-            output = _function(list_of_args[0])
-            time_end = time.time()
-            runtime = time_end - time_start
-            runTimes.append(runtime)
-            print(f"\n{_function.__name__}: {output}")
+            try:
+                time_start = time.time() # Init time
+                output = _function(list_of_args[0])
+                time_end = time.time()
+                runtime = time_end - time_start
+                if runtime < 0.000001:
+                    runTimes.append(None)
+                else:
+                    runTimes.append(runtime)
+                print(f"\n{_function.__name__}: {output}")
+            except:
+                print(f"\n{_function.__name__}: None")
+                runTimes.append(None)
     elif len(list_of_args) == 2:
         # Get runtimes and print results
         for _function in list_of_functions:
-            time_start = time.time() # Init time
-            output = _function(list_of_args[0],list_of_args[1])
-            time_end = time.time()
-            runtime = time_end - time_start
-            runTimes.append(runtime)
-            print(f"\n{_function.__name__}: {output}")
+            try:
+                time_start = time.time() # Init time
+                output = _function(list_of_args[0],list_of_args[1])
+                time_end = time.time()
+                runtime = time_end - time_start
+                if runtime < 0.00001:
+                    runTimes.append(None)
+                else:
+                    runTimes.append(runtime)
+                print(f"\n{_function.__name__}: {output}")
+            except:
+                print(f"\n{_function.__name__}: None")
+                runTimes.append(None)
 
     # Get slowest runtime
     slowestFunction = list_of_functions[0]
     slowestTime = runTimes[0]
     slowestFunctionIndex = 0
-    for index in range(numFunctions):
-        if slowestTime < runTimes[index]:
-            slowestFunction = list_of_functions[index]
-            slowestTime = runTimes[index]
-            slowestFunctionIndex = index
-        else:
-            pass
-    print(f"\n{slowestFunction.__name__} was the slowest algorithm at {slowestTime:.5f} seconds.")
+    try:
+        for index in range(numFunctions):
+            if runTimes[index] != None:
+                if slowestTime < runTimes[index]:
+                    slowestFunction = list_of_functions[index]
+                    slowestTime = runTimes[index]
+                    slowestFunctionIndex = index
+                else:
+                    pass
+        print(f"\n{slowestFunction.__name__} was the slowest algorithm at {slowestTime:.5f} seconds.")
+    except:
+        print("\No comparisons to be made.")
 
     # Compare runtimes
     for index in range(numFunctions):
         if index == slowestFunctionIndex:
             pass
         else:
-            runTime = runTimes[index]
-            percentFaster = slowestTime / runTime
-            functionName = list_of_functions[index]
-            print(f"{functionName.__name__} is {percentFaster:.2f}% faster at {runTime:.5f} seconds.")
+            if runTimes[index] != None:
+                runTime = runTimes[index]
+                percentFaster = slowestTime / runTime
+                functionName = list_of_functions[index]
+                print(f"{functionName.__name__} is {percentFaster:.2f}% faster at {runTime:.5f} seconds.")
 
 #
 #   Assignment Questions
@@ -131,9 +158,6 @@ def validateWord_Edgar():
     else:
         print (False)
         
-validateWord_Edgar()
-    
-
 
 def validateWord_Matt(word_input):
     with open("words.txt", 'r') as datafile:
@@ -149,7 +173,7 @@ def validateWord_Matt(word_input):
 
 
 def validateWord_Comparison(word=None):
-    list_of_functions = [validateWord_Joshua, validateWord_Matt]
+    list_of_functions = [validateWord_Joshua, validateWord_Edgar, validateWord_Matt]
     print("\nQuestion 2. Given a proposed word that someone wants to play, can you check that is a valid word?")
     if word == None:
         word = input("\nEnter a word: ")
@@ -184,7 +208,7 @@ def makeWord_Matt(char_set, word):
 
             
 def makeWord_Comparison(char_list=None, word=None):
-    list_of_functions = [makeWord_Joshua, makeWord_Matt]
+    list_of_functions = [makeWord_Joshua, makeWord_Edgar, makeWord_Matt]
     print("\nQuestion 3. Given a set of tiles and a word, can you check if the word can be made from the tiles?")
     if char_list == None:
         if word == None:
@@ -226,7 +250,7 @@ def findWords_Matt(char_list):
 
 
 def findWords_Comparison(char_list=None):
-    list_of_functions = [findWords_Joshua]
+    list_of_functions = [findWords_Joshua, findWords_Edgar, findWords_Matt]
     print(f"\nQuestion 4. Given a set of tiles, can you find all the words you can make with them?")
     if char_list == None:
         tiles = input("\nEnter a list of letters seperated by a comma. (ex. h,e,l,l,o): ")
@@ -264,8 +288,8 @@ def puzzleWords_Matt(puzzle_letters):
 
 
 def puzzleWords_Comparison(puzzle_letters=None):
-    list_of_functions = [puzzleWords_Joshua]
-    print(f"\nQuestion 4. Can you write a function to tell you all of possible words for a given puzzle?")
+    list_of_functions = [puzzleWords_Joshua, puzzleWords_Edgar, puzzleWords_Matt]
+    print(f"\nQuestion 5. Can you write a function to tell you all of possible words for a given puzzle?")
     if puzzle_letters == None:
         tiles = input("\nEnter a list of letters seperated by a comma. (ex. a,b,c,i,n,r,l): ")
         puzzle_letters = tiles.split(",")
@@ -354,26 +378,28 @@ def mostBingos_Matt():
 
 
 def mostBingos_Comparison():
-    list_of_functions = [mostBingos_Joshua]
+    list_of_functions = [mostBingos_Joshua, mostBingos_Edgar, mostBingos_Matt]
+    print(f"\nQuestion 6. What set(s) of eight letters form(s) the most possible bingos?")
+    print("This one takes a while, please wait...")
     compareRuntimes(list_of_args=None, list_of_functions=list_of_functions)
 
 
 if __name__ == "__main__":
 
-    # # Run question 1
-    # sumOfN_Comparison()
+    # Run question 1
+    sumOfN_Comparison()
 
-    # # Run question 2
-    # validateWord_Comparison()
+    # Run question 2
+    validateWord_Comparison()
 
-    # # Run question 3
-    # makeWord_Comparison()
+    # Run question 3
+    makeWord_Comparison()
 
-    # # Run question 4
-    # findWords_Comparison()
+    # Run question 4
+    findWords_Comparison()
 
-    # # Run question 5
-    # puzzleWords_Comparison()
+    # Run question 5
+    puzzleWords_Comparison()
 
-    # # Run question 6
+    # Run question 6
     mostBingos_Comparison()
