@@ -280,7 +280,7 @@ def mostBingos_Joshua():
             if word_length != 8:  # skip words that are not 8 letters
                 continue
             else:
-                bingos[word.rstrip()] = []
+                bingos[str(word.rstrip())] = []
                 _8char_words.append(word.rstrip())
     for bingo in bingos:
         # Check if words, using same letters exist
@@ -295,7 +295,7 @@ def mostBingos_Joshua():
                 for char in other_word_list:
                     if char in chars and other_word_index == other_word_length -1:
                         other_bingos.append(other_word)
-                        print(f"A match for {bingo} is {other_word}")
+                        #print(f"A match for {bingo} is {other_word}")
                     elif char in chars:
                         chars.remove(char)
                         other_word_index += 1
@@ -310,18 +310,32 @@ def mostBingos_Joshua():
             winning_chars_all.clear()  # reset winning_chars
             winning_chars = []
             winning_chars.append(bingo_chars)
-            winning_chars.append(bingos[winning_chars][0])
+            winning_chars.append(bingos[bingo_chars])
             winning_chars_all.append(winning_chars)
-            num_winning_charset = len(bingos[winning_chars]) + 1  # plus 1 for key
-        elif len(bingo[bingo_chars]) == num_winning_charset:
-            winning_chars = []
-            winning_chars.append(bingo_chars)
-            winning_chars.append(bingos[winning_chars][0])
-            winning_chars_all.appen(winning_chars)
+            num_winning_charset = len(bingos[bingo_chars])
+        elif len(bingos[bingo_chars]) == num_winning_charset:
+            exist_already = False
+            for winning_set in winning_chars_all:  # compare to existing winners
+                if bingo_chars == winning_set[0]:
+                    exist_already = True
+                for word in winning_set[1]:
+                    if bingo_chars == word:
+                        exist_already = True
+            if exist_already == False:
+                winning_chars = []
+                winning_chars.append(bingo_chars)
+                winning_chars.append(bingos[bingo_chars])
+                winning_chars_all.append(winning_chars)
         else:
             continue
+    # Print winning chars and words
+    for winner in winning_chars_all:
+        chars = winner[0]
+        other_words = winner[1]
+        num_other_words = len(other_words)
+        print(f"The tiles in '{chars}' can spell {str(num_other_words)} other words including:")
+        print(str(other_words))
     # Return winner
-    print(str(winning_chars_all))
     return winning_chars_all
 
 
