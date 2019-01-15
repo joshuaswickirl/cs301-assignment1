@@ -246,7 +246,20 @@ def findWords_Edgar(char_list):
 
 
 def findWords_Matt(char_list):
-    pass
+    confirmed_words = []
+    with open("words.txt", 'r') as words_file:
+        chars = char_list.copy()
+        for word in words_file:
+            candidate = True
+            letterlist=list(chars)
+            for letter not in letterlist:
+                candidate = False
+                break
+            else:
+                letterlist.remove(letter)
+        if candidate==True:
+            confirmed_words.append(word)
+    return confirmed_words
 
 
 def findWords_Comparison(char_list=None):
