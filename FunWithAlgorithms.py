@@ -305,7 +305,22 @@ def puzzleWords_Edgar(puzzle_letters):
 
 
 def puzzleWords_Matt(puzzle_letters):
-    pass
+    confirmed_words = []
+    with open("words.txt", 'r') as words_file:
+        chars = puzzle_letters.copy()
+        for word in words_file:
+            word = word.rstrip()
+            word_length = len(word)
+            if word_length >= 5:
+                candidate = True
+                letterlist=list(chars)
+                for letter in word:
+                    if letter not in letterlist:
+                        candidate = False
+                        break
+                if candidate==True:
+                    confirmed_words.append(word)
+        return confirmed_words
 
 
 def puzzleWords_Comparison(puzzle_letters=None):
