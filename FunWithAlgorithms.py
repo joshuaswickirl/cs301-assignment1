@@ -250,15 +250,17 @@ def findWords_Matt(char_list):
     with open("words.txt", 'r') as words_file:
         chars = char_list.copy()
         for word in words_file:
+            word = word.rstrip()
             candidate = True
             letterlist=list(chars)
-            for letter not in letterlist:
-                candidate = False
-                break
-            else:
-                letterlist.remove(letter)
-        if candidate==True:
-            confirmed_words.append(word)
+            for letter in word:
+                if letter not in letterlist:
+                    candidate = False
+                    break
+                else:
+                    letterlist.remove(letter)
+            if candidate==True:
+                confirmed_words.append(word)
     return confirmed_words
 
 
@@ -415,10 +417,10 @@ if __name__ == "__main__":
     # makeWord_Comparison()
 
     # # Run question 4
-    # findWords_Comparison()
+    findWords_Comparison()
 
     # # Run question 5
-    puzzleWords_Comparison()
+    # puzzleWords_Comparison()
 
     # # Run question 6
     # mostBingos_Comparison()
