@@ -307,18 +307,22 @@ def puzzleWords_Edgar(puzzle_letters):
 def puzzleWords_Matt(puzzle_letters):
     confirmed_words = []
     with open("words.txt", 'r') as words_file:
-        chars = puzzle_letters.copy()
+        chars = char_list.copy()
         for word in words_file:
             word = word.rstrip()
             word_length = len(word)
             if word_length >= 5:
                 candidate = True
                 letterlist=list(chars)
+                center_letter = puzzle_letters[0]
+                has_center_letter = False
                 for letter in word:
+                    if letter == center_letter:
+                        has_center_letter = True
                     if letter not in letterlist:
                         candidate = False
                         break
-                if candidate==True:
+                if candidate == True and has_center_letter == True:
                     confirmed_words.append(word)
         return confirmed_words
 
