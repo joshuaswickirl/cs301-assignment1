@@ -83,16 +83,16 @@ def compareRuntimes(list_of_args, list_of_functions):
                     pass
         print(f"\n{slowestFunction.__name__} was the slowest algorithm at {slowestTime:.5f} seconds.")
     except:
-        print("\No comparisons to be made.")
+        print("\nNo comparisons to be made.")
 
     # Compare runtimes
     for index in range(numFunctions):
         if index == slowestFunctionIndex:
             pass
         else:
-            if runTimes[index] != None:
+            if runTimes[index] != None and slowestTime != None:
                 runTime = runTimes[index]
-                percentFaster = slowestTime / runTime
+                percentFaster = float(slowestTime) / float(runTime)
                 functionName = list_of_functions[index]
                 print(f"{functionName.__name__} is {percentFaster:.2f}% faster at {runTime:.5f} seconds.")
 
@@ -265,18 +265,24 @@ def puzzleWords_Joshua(puzzle_letters):
         for word in words_file:
             word_as_list = list(word.rstrip())
             word_length = len(word_as_list)
-            word_index = 0
-            chars = puzzle_letters.copy()
-            for letter in word_as_list:
-                if letter in chars and word_index == word_length-1:
-                    confirmed_words.append(word.rstrip())
-                elif letter in chars:
-                    chars.remove(letter)
-                    word_index += 1
-                else:
-                    break
+            if word_length >= 5:  # skip words w/ less than 5 letters
+                word_index = 0
+                chars = puzzle_letters.copy()
+                center_letter = puzzle_letters[0]
+                has_center_letter = False
+                for letter in word_as_list:
+                    if letter == center_letter:
+                        has_center_letter = True
+                    if letter in chars and word_index == word_length-1 and has_center_letter:
+                        confirmed_words.append(word.rstrip())
+                    elif letter in chars:
+                        word_index += 1
+                    else:
+                        break
+            else:
+                continue
     #print(f"The following words can be made with {str(puzzle_letters)}.\n {str(confirmed_words)}")
-    return confirmed_words
+    return len(confirmed_words)
 
 
 def puzzleWords_Edgar(puzzle_letters):
@@ -291,7 +297,7 @@ def puzzleWords_Comparison(puzzle_letters=None):
     list_of_functions = [puzzleWords_Joshua, puzzleWords_Edgar, puzzleWords_Matt]
     print(f"\nQuestion 5. Can you write a function to tell you all of possible words for a given puzzle?")
     if puzzle_letters == None:
-        tiles = input("\nEnter a list of letters seperated by a comma. (ex. a,b,c,i,n,r,l): ")
+        tiles = input("\nEnter a puzzle letters. Center letter first. (ex. l,a,b,c,i,n,r): ")
         puzzle_letters = tiles.split(",")
     compareRuntimes(list_of_args=[puzzle_letters], list_of_functions=list_of_functions)
 
@@ -387,19 +393,19 @@ def mostBingos_Comparison():
 if __name__ == "__main__":
 
     # Run question 1
-    sumOfN_Comparison()
+    #sumOfN_Comparison()
 
     # Run question 2
-    validateWord_Comparison()
+    # validateWord_Comparison()
 
-    # Run question 3
-    makeWord_Comparison()
+    # # Run question 3
+    # makeWord_Comparison()
 
-    # Run question 4
-    findWords_Comparison()
+    # # Run question 4
+    # findWords_Comparison()
 
-    # Run question 5
+    # # Run question 5
     puzzleWords_Comparison()
 
-    # Run question 6
-    mostBingos_Comparison()
+    # # Run question 6
+    # mostBingos_Comparison()
