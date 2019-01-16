@@ -261,7 +261,6 @@ def findWords_Edgar():
             print('Found Word', word)
 
 
-
 def findWords_Matt(char_list):
     confirmed_words = []
     with open("words.txt", 'r') as words_file:
@@ -314,33 +313,11 @@ def puzzleWords_Joshua(puzzle_letters):
             else:
                 continue
     #print(f"The following words can be made with {str(puzzle_letters)}.\n {str(confirmed_words)}")
-    return len(confirmed_words)
+    return confirmed_words
 
 
 def puzzleWords_Edgar(puzzle_letters):
-    confirmed_words = []
-    found = False
-    center_letter_used = 'l'
-    with open("words.txt", 'r') as words_file:
-        while not found:
-            for word in words_file:
-                chars = char_list.copy()
-            word = word.rstrip()
-            word_length = len(word_list)
-            if word_length >= 5:
-                candidate = True
-                letterlist=list(chars)
-                center_letter = puzzle_letters[0]
-                center_letter_used = False
-                for letter in word_list:
-                    if letter == center_letter:
-                        center_letter_used = True
-                    elif letter not in letterlist:
-                        candidate = False
-                        break
-                if candidate == True and center_letter_used == True:
-                    confirmed_words.append(word)
-        return confirmed_words
+    pass
 
 
 def puzzleWords_Matt(puzzle_letters):
@@ -466,19 +443,19 @@ def mostBingos_Comparison():
 if __name__ == "__main__":
 
     # Run question 1
-    #sumOfN_Comparison()
+    sumOfN_Comparison()
 
     # Run question 2
-    # validateWord_Comparison()
+    validateWord_Comparison()
 
-    # # Run question 3
-    # makeWord_Comparison()
+    # Run question 3
+    makeWord_Comparison()
 
-    # # Run question 4
+    # Run question 4
     findWords_Comparison()
 
-    # # Run question 5
-    # puzzleWords_Comparison()
+    # Run question 5
+    puzzleWords_Comparison()
 
-    # # Run question 6
-    # mostBingos_Comparison()
+    # Run question 6
+    mostBingos_Comparison()
