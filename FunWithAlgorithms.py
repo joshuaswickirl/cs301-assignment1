@@ -7,6 +7,7 @@
 #
 
 import time
+from collections import Counter
 
 #
 #   Helper function for measuring and comparing runtime of algorithms
@@ -194,8 +195,16 @@ def makeWord_Joshua(char_list, word):
             return False
 
 
-def makeWord_Edgar(char_set, word):
-    pass
+def makeWord_Edgar(input,charSet): 
+    for word in input: 
+        dict = Counter(word) 
+        check = 1 
+        for key in dict.keys(): 
+            if key not in charSet: 
+                check = 0
+                print("Word can't be made with given letters: " + charSet)       
+        if check==1: 
+            print(word)
 
 
 def makeWord_Matt(char_set, word):
@@ -241,8 +250,16 @@ def findWords_Joshua(char_list):
     return confirmed_words
 
 
-def findWords_Edgar(char_list):
-    pass
+def findWords_Edgar():
+    with open('words.txt') as fin:
+        lines = (word.strip().upper() for word in fin)
+        words = [(word, Counter(word)) for word in lines]
+
+    tiles = Counter('ANIMELH')
+    for word, letter_count in words:
+        if len(word) >= 6 and not (letter_count - tiles ):
+            print('Found Word', word)
+
 
 
 def findWords_Matt(char_list):
