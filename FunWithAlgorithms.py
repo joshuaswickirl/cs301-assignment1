@@ -318,7 +318,29 @@ def puzzleWords_Joshua(puzzle_letters):
 
 
 def puzzleWords_Edgar(puzzle_letters):
-    pass
+    confirmed_words = []
+    found = False
+    center_letter_used = 'l'
+    with open("words.txt", 'r') as words_file:
+        while not found:
+            for word in words_file:
+                chars = char_list.copy()
+            word = word.rstrip()
+            word_length = len(word_list)
+            if word_length >= 5:
+                candidate = True
+                letterlist=list(chars)
+                center_letter = puzzle_letters[0]
+                center_letter_used = False
+                for letter in word_list:
+                    if letter == center_letter:
+                        center_letter_used = True
+                    elif letter not in letterlist:
+                        candidate = False
+                        break
+                if candidate == True and center_letter_used == True:
+                    confirmed_words.append(word)
+        return confirmed_words
 
 
 def puzzleWords_Matt(puzzle_letters):
