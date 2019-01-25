@@ -353,6 +353,32 @@ def puzzleWords_Comparison(puzzle_letters=None):
 
 
 # 6. Sets of eight letters to form most possible bingos
+def mostBingos_linear():
+    bingos = {
+        #ordered_word: count
+    }
+    with open('words.txt', 'r') as words_file:
+        for word in words_file:
+            word = list(word.rstrip())
+            if len(word) == 8:
+                letters = "".join(sorted(word))
+                if letters in bingos:
+                    bingos[letters] += 1
+                else:
+                    bingos[letters] = 1
+
+    best_letters = []
+    num_bingos = 0
+    for bingo in bingos:
+        if bingos[bingo] > num_bingos:
+            best_letters = []
+            num_bingos = bingos[bingo]
+            best_letters.append(bingo)
+        elif bingos[bingo] == num_bingos:
+            best_letters.append(bingo)
+
+    print(f"{str(best_letters)} {str(num_bingos)}")
+
 def mostBingos_Joshua():
     bingos = {
         #word: [other, words],
@@ -434,7 +460,7 @@ def mostBingos_Matt():
 
 
 def mostBingos_Comparison():
-    list_of_functions = [mostBingos_Joshua, mostBingos_Edgar, mostBingos_Matt]
+    list_of_functions = [mostBingos_linear]
     print(f"\nQuestion 6. What set(s) of eight letters form(s) the most possible bingos?")
     print("This one takes a while, please wait...")
     compareRuntimes(list_of_args=None, list_of_functions=list_of_functions)
@@ -442,20 +468,21 @@ def mostBingos_Comparison():
 
 if __name__ == "__main__":
 
-    # Run question 1
-    sumOfN_Comparison()
+    # # Run question 1
+    # sumOfN_Comparison()
 
-    # Run question 2
-    validateWord_Comparison()
+    # # Run question 2
+    # validateWord_Comparison()
 
-    # Run question 3
-    makeWord_Comparison()
+    # # Run question 3
+    # makeWord_Comparison()
 
-    # Run question 4
-    findWords_Comparison()
+    # # Run question 4
+    # findWords_Comparison()
 
-    # Run question 5
-    puzzleWords_Comparison()
+    # # Run question 5
+    # puzzleWords_Comparison()
 
     # Run question 6
-    mostBingos_Comparison()
+    # mostBingos_Comparison()
+    mostBingos_linear()
